@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #0b1220;
+        --card: #ffffff;
+        --primary: #2563eb;
+        --accent: #38bdf8;
+        --text: #0f172a;
+        --muted: #64748b;
+        --border: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Poppins", sans-serif;
+        background: radial-gradient(
+            circle at top right,
+            rgba(37, 99, 235, 0.15),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(56, 189, 248, 0.15),
+            transparent 40%
+          ),
+          var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .register-box {
+        width: 100%;
+        max-width: 480px;
+        background: var(--card);
+        border-radius: 26px;
+        padding: 2.8rem 2.4rem;
+        box-shadow: 0 35px 90px rgba(0, 0, 0, 0.35);
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 1.2rem;
+      }
+      .logo img {
+        height: 46px;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 1.9rem;
+        margin-bottom: 0.3rem;
+        color: var(--text);
+      }
+      .subtitle {
+        text-align: center;
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin-bottom: 2rem;
+      }
+
+      .group {
+        margin-bottom: 1.2rem;
+      }
+      .group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+      .group input,
+      .group select {
+        width: 100%;
+        padding: 15px 16px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        font-size: 0.95rem;
+      }
+
+      .group input:focus,
+      .group select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+        outline: none;
+      }
+
+      .password-field {
+        position: relative;
+      }
+      .toggle {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        cursor: pointer;
+        color: var(--muted);
+      }
+
+      /* Activation */
+      .activation {
+        border: 2px dashed var(--accent);
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(56, 189, 248, 0.08);
+      }
+
+      .activation label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 1.2rem;
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0f172a;
+        color: #fff;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-size: 0.85rem;
+        display: flex;
+        gap: 8px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.4s ease;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-10px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="register-box">
+      <div class="logo">
+        <img src="assets/logo.svg" alt="Logo" />
+      </div>
+
+      <h1>Create Account</h1>
+      <p class="subtitle">Activate your account to continue</p>
+
+      <form id="registerForm">
+        <div class="group">
+          <label>Full Name</label>
+          <input type="text" id="fullName" required />
+        </div>
+
+        <div class="group">
+          <label>Username</label>
+          <input type="text" id="username" required />
+        </div>
+
+        <div class="group">
+          <label>Email</label>
+          <input type="email" id="email" required />
+        </div>
+
+        <div class="group">
+          <label>Password</label>
+          <div class="password-field">
+            <input type="password" id="password" required />
+            <span class="toggle" onclick="togglePassword()">Show</span>
+          </div>
+        </div>
+
+        <div class="group">
+          <label>Country</label>
+          <select id="country" required>
+            <option value="">Select country</option>
+            <option value="Nigeria">Nigeria</option>
+            <option value="Other">Other Countries</option>
+          </select>
+        </div>
+
+        <div class="activation">
+          <label>
+            <input type="checkbox" id="activationCheck" />
+            Activate account for <strong>₦10,050</strong>
+          </label>
+        </div>
+
+        <button class="submit-btn" id="submitBtn" disabled>
+          Create Account
+        </button>
+      </form>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      function togglePassword() {
+        const p = document.getElementById("password");
+        p.type = p.type === "password" ? "text" : "password";
+      }
+
+      const check = document.getElementById("activationCheck");
+      const btn = document.getElementById("submitBtn");
+      check.addEventListener("change", () => (btn.disabled = !check.checked));
+
+      /* Submit → dashboard */
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          localStorage.setItem("activationFee", 12050);
+          window.location.href = "dashboard.html";
+        });
+
+      /* Live notifications */
+      const names = [
+        "Adamu Loya",
+        "Sadiq Musa",
+        "Ibrahim Bello",
+        "Aisha Sadiya",
+        "Musa Abdullahi",
+        "Zainab Lawal",
+        "Sule Ahmed",
+        "Fatima Usman",
+        "Kabiru Danjuma",
+        "Halima Yakubu",
+      ];
+
+      const toast = document.getElementById("toast");
+
+      function showToast() {
+        const name = names[Math.floor(Math.random() * names.length)];
+        toast.innerHTML = `🇳🇬 <strong>${name}</strong> from Nigeria just subscribed with ₦12,050`;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 4000);
+      }
+
+      setTimeout(showToast, 3000);
+      setInterval(showToast, 10000);
+    </script>
+  </body>
+</html>

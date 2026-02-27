@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard – StreamAfrica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO META -->
+    <meta
+      name="description"
+      content="StreamAfrica dashboard – Activate your account to access earning opportunities, media tasks, and digital gigs in Nigeria."
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --green: #0f7f4d;
+        --light: #f6fdf9;
+        --dark: #0f172a;
+        --muted: #64748b;
+        --card: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: var(--light);
+        color: var(--dark);
+      }
+
+      /* HEADER */
+      header {
+        background: var(--green);
+        padding: 18px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      header img {
+        height: 38px;
+      }
+
+      /* CONTAINER */
+      .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 24px;
+      }
+
+      .locked {
+        filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      /* GRID */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      .stat {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--green);
+      }
+
+      .stat-label {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      /* OVERLAY */
+      .lock-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+        transition: opacity 0.4s ease;
+      }
+
+      .activate-box {
+        background: #fff;
+        border-radius: 20px;
+        padding: 28px;
+        max-width: 420px;
+        width: 90%;
+        text-align: center;
+        animation: pop 0.4s ease;
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .activate-box h2 {
+        color: var(--green);
+      }
+
+      .activate-box p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .activate-btn {
+        margin-top: 18px;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        padding: 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      .activate-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      /* LOADER */
+      .loader {
+        display: none;
+        margin-top: 16px;
+      }
+
+      .spinner {
+        width: 36px;
+        height: 36px;
+        border: 4px solid #e5e7eb;
+        border-top: 4px solid var(--green);
+        border-radius: 50%;
+        margin: 0 auto;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <img src="assets/logo.svg" alt="StreamAfrica" />
+      <div>Dashboard</div>
+    </header>
+
+    <div class="container locked">
+      <h1>Welcome back 👋</h1>
+
+      <div class="grid">
+        <div class="card">
+          <div class="stat">₦0.00</div>
+          <div class="stat-label">Total Earnings</div>
+        </div>
+        <div class="card">
+          <div class="stat">0</div>
+          <div class="stat-label">Completed Tasks</div>
+        </div>
+        <div class="card">
+          <div class="stat">Locked</div>
+          <div class="stat-label">Available Gigs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVATION OVERLAY -->
+    <div class="lock-overlay" id="overlay">
+      <div class="activate-box">
+        <h2>Activate Your Account</h2>
+        <p>Unlock your dashboard and start earning on StreamAfrica.</p>
+
+        <button class="activate-btn" id="payBtn">
+          Activate Account – ₦10,000
+        </button>
+
+        <div class="loader" id="loader">
+          <div class="spinner"></div>
+          <p style="font-size: 0.85rem; color: #64748b; margin-top: 10px">
+            Redirecting you securely…
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("payBtn").addEventListener("click", function () {
+        this.disabled = true;
+        this.textContent = "Processing...";
+        document.getElementById("loader").style.display = "block";
+
+        setTimeout(function () {
+          window.location.href = "payment.html";
+        }, 1200);
+      });
+    </script>
+  </body>
+</html>
